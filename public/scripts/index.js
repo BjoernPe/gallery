@@ -58,7 +58,7 @@ fetch("../images")
       imageContainer.appendChild(galleryItem);
     });
   })
-  .catch((error) => {
+  .catch((error, images) => {
     console.error('Error:', images);
     console.error('Error fetching images:', error);
     alert("Fehler beim Abrufen von Bildern");
