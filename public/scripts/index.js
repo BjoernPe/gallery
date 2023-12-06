@@ -16,7 +16,7 @@ function uploadImages() {
       formData.append("images", files[i]);
     }
 
-    fetch("../upload", {
+    fetch("./public/upload", {
       method: "POST",
       body: formData,
     })
@@ -35,7 +35,7 @@ function uploadImages() {
 }
 
 // Lade Bilder vom Server
-fetch("../images")
+fetch("./public/images")
   .then((response) => response.json())
   .then((images) => {
     const imageContainer = document.getElementById("imageContainer");
@@ -58,8 +58,7 @@ fetch("../images")
       imageContainer.appendChild(galleryItem);
     });
   })
-  .catch((error, images) => {
-    console.error('Error:', images);
+  .catch((error) => {
     console.error('Error fetching images:', error);
     alert("Fehler beim Abrufen von Bildern");
   });
