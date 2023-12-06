@@ -58,7 +58,11 @@ fetch("/images")
       imageContainer.appendChild(galleryItem);
     });
   })
-  .catch((error) => console.error("Error fetching images:", error));
+  .catch((error) => {
+    console.error('Error fetching images:', error);
+    alert("Fehler beim Abrufen von Bildern");
+  });
+  
 
 document.addEventListener("DOMContentLoaded", function () {
   const uploadLink = document.getElementById("uploadLink");

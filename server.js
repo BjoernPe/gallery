@@ -44,7 +44,7 @@ app.post('/upload', upload.array('images'), (req, res) => {
   res.json({ message: 'Upload successful' });
 });
 
-app.get('/', (req, res) => {
+app.get('/images', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
