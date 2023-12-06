@@ -28,7 +28,7 @@ app.get('/images', async (req, res) => {
 
     const images = files.map(file => ({
       name: file,
-      path: path.join('images', 'upload', 'hongkong', file),
+      path: path.join('/images', 'upload', 'hongkong', file),
     }));
 
     res.json(images);
