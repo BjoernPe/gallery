@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Endpoint zum Lesen der Bilddateien
-app.get('./images', async (req, res) => {
+app.get('../images', async (req, res) => {
   try {
     const imageDir = path.join(__dirname, 'public', 'images', 'upload', 'hongkong');
     const files = await fs.readdir(imageDir);
@@ -44,7 +44,7 @@ app.get('./images', async (req, res) => {
 });
 
 // Endpoint zum Hochladen von Bildern
-app.post('/upload', upload.array('images'), (req, res) => {
+app.post('../upload', upload.array('images'), (req, res) => {
   // Hier könntest du zusätzliche Verarbeitung nach dem Hochladen implementieren
   res.json({ message: 'Upload successful' });
 });
