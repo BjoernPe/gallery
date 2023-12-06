@@ -59,6 +59,7 @@ fetch("../images")
     });
   })
   .catch((error) => {
+    console.error('Error:', images);
     console.error('Error fetching images:', error);
     alert("Fehler beim Abrufen von Bildern");
   });
