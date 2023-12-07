@@ -35,7 +35,7 @@ function uploadImages() {
 }
 
 // Lade Bilder vom Server
-fetch("/images")
+fetch("./images")
   .then((response) => response.json())
   .then((images) => {
     const imageContainer = document.getElementById("imageContainer");
