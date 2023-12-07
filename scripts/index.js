@@ -35,33 +35,29 @@ function uploadImages() {
 }
 
 // Lade Bilder vom Server
-fetch("./images")
-  .then((response) => response.json())
-  .then((images) => {
-    const imageContainer = document.getElementById("imageContainer");
+document.addEventListener("DOMContentLoaded", function () {
+  const imageContainer = document.getElementById("imageContainer");
 
-    images.forEach((image) => {
-      const galleryItem = document.createElement("div");
-      galleryItem.className = "col-md-4 mb-4 gallery-item";
+  fetch("/images")
+    .then((response) => response.json())
+    .then((images) => {
+      images.forEach((image) => {
+        const galleryItem = document.createElement("div");
+        galleryItem.className = "col-md-4 mb-4 gallery-item";
 
-      const link = document.createElement("a");
-      link.setAttribute("data-fancybox", "gallery");
-      link.href = image.path;
+        const img = document.createElement("img");
+        img.src = image.path; // Hier die Bild-URL direkt setzen
+        img.alt = image.name;
 
-      const img = document.createElement("img");
-      img.src = image.path;
-      img.alt = image.name;
-
-      link.appendChild(img);
-      galleryItem.appendChild(link);
-
-      imageContainer.appendChild(galleryItem);
+        galleryItem.appendChild(img);
+        imageContainer.appendChild(galleryItem);
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching images:', error);
+      alert("Fehler beim Abrufen von Bildern");
     });
-  })
-  .catch((error) => {
-    console.error('Error fetching images:', error);
-    alert("Fehler beim Abrufen von Bildern");
-  });
+});
   
 
 document.addEventListener("DOMContentLoaded", function () {
