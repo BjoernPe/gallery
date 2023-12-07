@@ -4,14 +4,12 @@ const fs = require('fs').promises;
 const multer = require('multer');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; // Port anpassen
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Multer-Konfiguration für den Dateiupload
+// Middleware für den Dateiupload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'public', 'images', 'upload', 'hongkong'));
+    cb(null, path.join(__dirname, 'images', 'upload', 'hongkong'));
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -20,15 +18,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Statische Dateien im Root-Verzeichnis
+app.use(express.static(__dirname));
+
 // Endpoint zum Lesen der Bilddateien
 app.get('/images', async (req, res) => {
   try {
-    const imageDir = path.join(__dirname, 'public', 'images', 'upload', 'hongkong');
+    const imageDir = path.join(__dirname, 'images', 'upload', 'hongkong');
     const files = await fs.readdir(imageDir);
 
     const images = files.map(file => ({
       name: file,
-      path: path.join('/images', 'upload', 'hongkong', file),
+      path: path.join('images', 'upload', 'hongkong', file),
     }));
 
     res.json(images);
@@ -45,7 +46,7 @@ app.post('/upload', upload.array('images'), (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(port, () => {
