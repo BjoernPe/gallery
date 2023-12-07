@@ -24,20 +24,25 @@ app.use(express.static(__dirname));
 // Endpoint zum Lesen der Bilddateien
 app.get('/images', async (req, res) => {
   try {
-    const imageDir = path.join(__dirname, 'images', 'upload', 'hongkong');
+    const imageDir = path.join(__dirname, 'images', 'upload', 'hongkong'); // Pfade anpassen
     const files = await fs.readdir(imageDir);
 
     const images = files.map(file => ({
       name: file,
-      path: path.join('images', 'upload', 'hongkong', file),
+      path: path.join('images', 'upload', 'hongkong', file), // Pfade anpassen
     }));
 
+    // Setze den Content-Type-Header auf application/json
+    res.setHeader('Content-Type', 'application/json');
+
+    // Sende die JSON-Daten als Antwort
     res.json(images);
   } catch (error) {
     console.error('Error reading images:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Endpoint zum Hochladen von Bildern
 app.post('/upload', upload.array('images'), (req, res) => {
